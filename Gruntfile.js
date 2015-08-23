@@ -3,12 +3,12 @@
  * MailDev - Gruntfile.js
  */
 
-var sendEmails = require('./test/send.js');
+var sendEmails = require('./test/send.js')
 
 module.exports = function (grunt) {
 
   grunt.initConfig({
-    
+
     // Path config:
     path: {
       app: 'app',
@@ -27,10 +27,10 @@ module.exports = function (grunt) {
         script: './bin/maildev',
         options: {
           ignoredFiles: ['app/**', 'assets/**', 'test/**'],
-          callback: function(nodemon) {
-            nodemon.on('start', function() {
-              setTimeout(sendEmails, 1000);
-            });
+          callback: function (nodemon) {
+            nodemon.on('start', function () {
+              setTimeout(sendEmails, 1000)
+            })
           }
         }
       }
@@ -59,6 +59,15 @@ module.exports = function (grunt) {
       }
     },
 
+    autoprefixer: {
+      options: {
+        browsers: ['last 2 versions', 'ie 8', 'ie 9']
+      },
+      files: {
+        '<%= path.app %>/styles/style.css': '<%= path.assets %>/styles/style.css'
+      }
+    },
+
     concurrent: {
       dev: {
         tasks: ['nodemon', 'watch'],
@@ -68,19 +77,20 @@ module.exports = function (grunt) {
       }
     }
 
-  });
+  })
 
   // Load all grunt tasks
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks)
 
   grunt.registerTask('dev', 'Run the app and watch SCSS files for changes', [
     'concurrent'
-  ]);
+  ])
 
   grunt.registerTask('build', 'Lint JavaScript + compile SCSS', [
     'jshint',
-    'sass'
-  ]);
+    'sass',
+    'autoprefixer'
+  ])
 
-  grunt.registerTask('default', ['build']);
-};
+  grunt.registerTask('default', ['build'])
+}
