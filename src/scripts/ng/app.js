@@ -4,7 +4,12 @@
  * App Config
  */
 
-var app = angular.module('mailDevApp', ['ngRoute', 'ngResource', 'ngSanitize'])
+var app = angular.module('mailDevApp', [
+  'ngRoute',
+  'ngResource',
+  'ngSanitize',
+  'ngAnimate'
+])
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true)
@@ -66,15 +71,15 @@ app.filter('newLines', function () {
     emailList.style.height = newEmailListHeight + 'px'
   }
 
-  adjustEmailListHeight()
-
   window.onresize = function () {
     if (resizeTimeout) {
       clearTimeout(resizeTimeout)
     }
-    resizeTimeout = window.setTimeout(function () {
+    resizeTimeout = setTimeout(function () {
       adjustEmailListHeight()
       resizeTimeout = null
     }, 300)
   }
+
+  window.onresize()
 })()

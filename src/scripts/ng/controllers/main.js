@@ -7,6 +7,7 @@
 app.controller('MainCtrl', [
   '$scope', '$rootScope', '$http', '$route', '$location', 'Email',
   function ($scope, $rootScope, $http, $route, $location, Email) {
+    $scope.loaded = false
     $scope.items = []
     $scope.currentItemId = null
     $scope.autoShow = false
@@ -34,6 +35,10 @@ app.controller('MainCtrl', [
       if (route.params) {
         $scope.currentItemId = route.params.itemId
       }
+    })
+
+    $rootScope.$on('$viewContentLoaded', function () {
+      $scope.loaded = true
     })
 
     var refreshTimeout = null

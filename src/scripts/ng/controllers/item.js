@@ -35,7 +35,7 @@ app.controller('ItemCtrl', [
     var prepIframe = function () {
       // Wait for iframe to load
       setTimeout(function () {
-        var iframe = document.getElementsByTagName('iframe')[0]
+        iframe = document.getElementsByTagName('iframe')[0]
         var head = iframe.contentDocument.getElementsByTagName('head')[0]
         var baseEl = iframe.contentDocument.createElement('base')
 
@@ -56,25 +56,21 @@ app.controller('ItemCtrl', [
     // Updates the iframe height so it matches it's content
     // This prevents the iframe from having scrollbars
     var fixIframeHeight = function () {
-      // if (iframe) {
-        var body = iframe.contentDocument.getElementsByTagName('body')[0]
-        var newHeight = body.scrollHeight
-        iframe.height = newHeight
-      // }
+      var body = iframe.contentDocument.getElementsByTagName('body')[0]
+      var newHeight = body.scrollHeight
+      iframe.height = newHeight
     }
 
     // Updates all media query rules to use 'width' instead of device width
     var replaceMediaQueries = function () {
-      // if (iframe) {
-        angular.forEach(iframe.contentDocument.styleSheets, function (styleSheet) {
-          angular.forEach(styleSheet.cssRules, function (rule) {
-            if (rule.media && rule.media.mediaText) {
-              // TODO -- Add future warning if email doesn't use '[max|min]-device-width' media queries
-              rule.media.mediaText = rule.media.mediaText.replace('device-width', 'width')
-            }
-          })
+      angular.forEach(iframe.contentDocument.styleSheets, function (styleSheet) {
+        angular.forEach(styleSheet.cssRules, function (rule) {
+          if (rule.media && rule.media.mediaText) {
+            // TODO -- Add future warning if email doesn't use '[max|min]-device-width' media queries
+            rule.media.mediaText = rule.media.mediaText.replace('device-width', 'width')
+          }
         })
-      // }
+      })
     }
 
     // NOTE: This is kind of a hack to get these dropdowns working. Should be revisited in the future

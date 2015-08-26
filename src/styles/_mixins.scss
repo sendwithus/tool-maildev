@@ -1,24 +1,28 @@
+/**
+ * Keyframe animations
+ */
 
-@mixin displayFlex() {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
-@mixin flex($values) {
-  -webkit-box-flex: $values;
-  -moz-box-flex:  $values;
-  -webkit-flex:  $values;
-  -ms-flex:  $values;
-  flex:  $values;
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-@mixin align-items($value){
-  -webkit-align-items: $value;
-  align-items: $value;
-}
+/**
+ * Mixins
+ */
 
 @mixin size($width, $height: $width) {
   width: $width;
