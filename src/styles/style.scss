@@ -1,5 +1,5 @@
 /**
- * MailDev - style.css
+ * SWUMailDev - style.css
  *
  * Author: Dan Farrelly <daniel.j.farrelly@gmail.com>
  * Licensed under the MIT License.
@@ -7,11 +7,14 @@
  * MODIFIED FOR USE BY SENDWITHUS
  */
 
+$fa-font-path: '../fonts';
 
-@import 'normalize';
+@import '../../node_modules/normalize.css/normalize';
 @import 'fonts';
 @import 'mixins';
-@import 'font-awesome/font-awesome';
+@import '../../node_modules/font-awesome/scss/font-awesome';
+
+@import '../../node_modules/sweetalert/dist/sweetalert';
 
 /**
  * Variables
@@ -42,9 +45,9 @@ $toolbarHeight:     2.8em;
 .plain-text { font-family: Monaco, Menlo, Consolas, "Courier New", monospace; }
 
 .clearfix:before,
-.clearfix:after { content:""; display:table; }
-.clearfix:after { clear:both; }
-.clearfix { zoom:1; }
+.clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix       { zoom: 1; }
 
 .hidden {
   display: none !important;
@@ -58,7 +61,11 @@ $toolbarHeight:     2.8em;
 .ng-cloak,
 .x-ng-cloak,
 .ng-hide {
-    display: none !important;
+  display: none !important;
+}
+
+a[ng-click]{
+  cursor: pointer;
 }
 
 th,
@@ -431,6 +438,6 @@ code {
   display: inline-block;
   height: 20px;
   width: 15px;
-  background: url('../parachute.png') no-repeat;
-  @include image-2x('../parachute@2x.png', 15px, 20px);
+  background: url('../images/parachute.png') no-repeat;
+  @include image-2x('../images/parachute@2x.png', 15px, 20px);
 }

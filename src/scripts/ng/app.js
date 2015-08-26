@@ -7,26 +7,23 @@
 var app = angular.module('mailDevApp', ['ngRoute', 'ngResource', 'ngSanitize'])
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode(true)
 
   $routeProvider
     .when('/', {
-      templateUrl: 'views/main.html',
+      templateUrl: 'main.html',
       controller: 'MainCtrl'
     })
     .when('/email/:itemId', {
-      templateUrl: 'views/item.html',
+      templateUrl: 'item.html',
       controller: 'ItemCtrl'
     })
     .otherwise({
       redirectTo: '/'
     })
-
-  $locationProvider.html5Mode(true)
-
 }])
 
 app.run(['$rootScope', function ($rootScope) {
-
   // Connect Socket.io
   var socket = io()
 
@@ -41,7 +38,6 @@ app.run(['$rootScope', function ($rootScope) {
   $rootScope.$on('Refresh', function () {
     console.log('Refresh event called.')
   })
-
 }])
 
 /**
@@ -49,11 +45,9 @@ app.run(['$rootScope', function ($rootScope) {
  */
 
 app.filter('newLines', function () {
-
   return function (text) {
     return text && text.replace(/\n/g, '<br>') || ''
   }
-
 })
 
 /**
@@ -61,14 +55,13 @@ app.filter('newLines', function () {
  */
 
 ;(function () {
-
-  var sidebar             = document.querySelector('.sidebar')
-  var sidebarHeader       = document.querySelector('.sidebar-header')
-  var emailList           = document.querySelector('.email-list')
+  var sidebar = document.querySelector('.sidebar')
+  var sidebarHeader = document.querySelector('.sidebar-header')
+  var emailList = document.querySelector('.email-list')
   var sidebarHeaderHeight = sidebarHeader.getBoundingClientRect().height
-  var resizeTimeout       = null
+  var resizeTimeout = null
 
-  function adjustEmailListHeight() {
+  function adjustEmailListHeight () {
     var newEmailListHeight = sidebar.getBoundingClientRect().height - sidebarHeaderHeight
     emailList.style.height = newEmailListHeight + 'px'
   }
@@ -84,5 +77,4 @@ app.filter('newLines', function () {
       resizeTimeout = null
     }, 300)
   }
-
 })()

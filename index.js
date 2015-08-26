@@ -1,4 +1,3 @@
-
 /**
  * MailDev - index.js
  *
@@ -6,16 +5,14 @@
  * Licensed under the MIT License.
  */
 
-var program     = require('commander');
-var pkg         = require('./package.json');
-var web         = require('./lib/web');
-var mailserver  = require('./lib/mailserver');
-var logger      = require('./lib/logger');
+var program = require('commander')
+var pkg = require('./package.json')
+var web = require('./lib/web')
+var mailserver = require('./lib/mailserver')
+var logger = require('./lib/logger')
 
-
-module.exports = function(config) {
-  
-  var version = pkg.version;
+module.exports = function (config) {
+  var version = pkg.version
 
   if (!config) {
     // CLI
@@ -35,37 +32,42 @@ module.exports = function(config) {
       .option('--web-pass <password>', 'HTTP password for GUI')
       .option('-o, --open', 'Open the Web GUI after startup')
       .option('-v, --verbose')
-      .parse(process.argv);
+      .parse(process.argv)
   }
 
-  if (config.verbose){
-    logger.init(true);
+  if (config.verbose) {
+    logger.init(true)
   }
-  
+
   // Start the Mailserver & Web GUI
-  mailserver.create(config.smtp, config.ip, config.incomingUser, config.incomingPass);
+  mailserver.create(config.smtp, config.ip, config.incomingUser, config.incomingPass)
 
   if (config.outgoingHost ||
       config.outgoingPort ||
       config.outgoingUser ||
       config.outgoingPass ||
       config.outgoingSecure) {
-
     mailserver.setupOutgoing(
       config.outgoingHost,
-      parseInt(config.outgoingPort),
+      parseInt(config.outgoingPort, 10),
       config.outgoingUser,
       config.outgoingPass,
       config.outgoingSecure
-    );
+    )
   }
 
-  web.start(config.web, config.ip, mailserver, config.webUser, config.webPass);
+  web.start(
+    config.web,
+    config.ip,
+    mailserver,
+    config.webUser,
+    config.webPass
+  )
 
-  if (config.open){
-    var open = require('open');
-    open('http://' + (config.ip === '0.0.0.0' ? 'localhost' : config.ip) + ':' + config.web);
+  if (config.open) {
+    var open = require('open')
+    open('http://' + (config.ip === '0.0.0.0' ? 'localhost' : config.ip) + ':' + config.web)
   }
 
-  return mailserver;
-};
+  return mailserver
+}

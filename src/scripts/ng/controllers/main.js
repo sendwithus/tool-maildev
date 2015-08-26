@@ -5,9 +5,8 @@
  */
 
 app.controller('MainCtrl', [
-  '$scope', '$rootScope', '$http', 'Email', '$route', '$location',
-  function ($scope, $rootScope, $http, Email, $route, $location) {
-
+  '$scope', '$rootScope', '$http', '$route', '$location', 'Email',
+  function ($scope, $rootScope, $http, $route, $location, Email) {
     $scope.items = []
     $scope.currentItemId = null
     $scope.autoShow = false
@@ -38,8 +37,8 @@ app.controller('MainCtrl', [
     })
 
     var refreshTimeout = null
-    $rootScope.$on('newMail', function (e, newEmail) {
 
+    $rootScope.$on('newMail', function (e, newEmail) {
       // update model
       $scope.items.push(newEmail)
       countUnread()
@@ -54,7 +53,6 @@ app.controller('MainCtrl', [
           $scope.$apply()
         }, 200)
       }
-
     })
 
     $rootScope.$on('deleteMail', function (e, email) {
@@ -94,11 +92,14 @@ app.controller('MainCtrl', [
     // Initialize the view
     loadData()
 
-    $http({method: 'GET', url: 'config'})
-      .success(function (data) {
-        $rootScope.config = data
-        $scope.config = data
-      })
+    $http({
+      method: 'GET',
+      url: 'config'
+    })
+    .success(function (data) {
+      $rootScope.config = data
+      $scope.config = data
+    })
   }
 ])
 
@@ -109,16 +110,12 @@ app.controller('MainCtrl', [
 app.controller('NavCtrl', [
   '$scope', '$rootScope', '$location', 'Email',
   function ($scope, $rootScope, $location, Email) {
-
     $scope.refreshList = function () {
       $rootScope.$emit('Refresh')
     }
 
     $scope.deleteAll = function () {
-
       Email.delete({ id: 'all' })
-
     }
-
   }
 ])
