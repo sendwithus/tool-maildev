@@ -179,16 +179,20 @@ module.exports = function (grunt) {
     'concurrent'
   ])
 
-  grunt.registerTask('build', 'Lint JavaScript', [
+  grunt.registerTask('lint', 'Lint JavaScript', [
     'standard'
   ])
 
-  grunt.registerTask('build', 'Compile SCSS + copy fonts', [
-    'copy',
-    'sass',
-    'autoprefixer',
-    'concat'
-  ])
+  grunt.registerTask(
+    'build',
+    'Copy fonts, compile SCSS, Autoprefix vendor prefixes, concatenate stylesheets',
+    [
+      'copy',
+      'sass',
+      'autoprefixer',
+      'concat'
+    ]
+  )
 
   grunt.registerTask('default', ['build'])
 }

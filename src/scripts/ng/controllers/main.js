@@ -26,7 +26,7 @@ app.controller('MainCtrl', [
       })
     }
 
-    $scope.$on('uiRefresh', function (e, d) {
+    $rootScope.$on('uiRefresh', function (e, d) {
       loadData()
     })
 
@@ -39,14 +39,13 @@ app.controller('MainCtrl', [
     var refreshTimeout = null
 
     $scope.$on('emailNew', function (e, newEmail) {
-      console.log(e)
-      console.log(newEmail)
-
       // Show a browser notification for the new message
-      $notification('New Email!', {
-        body: 'You have a new email'
+      $notification('SWUMailDev - New Email!', {
+        body: newEmail.subject
       })
       .$on('click', function () {
+        console.log('NOTIFICATION CLICKEDDDD')
+        // Give the browser time to take focus before changing page state
         $location.path('/email/' + newEmail.id)
       })
 

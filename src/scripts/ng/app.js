@@ -31,7 +31,8 @@ app.config([
 
     // Set notification options
     $notificationProvider.setOptions({
-      delay: 3000
+      icon: 'https://www.sendwithus.com/assets/img/parachute.png',
+      delay: 5000
     })
   }
 ])
