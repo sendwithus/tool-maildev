@@ -69,7 +69,7 @@
     </a>
   </li>
   <li>
-    <a href="/email/{{item.id}}/download" class="">
+    <a href="/api/email/{{item.id}}/download" target="_blank">
       <i class="fa fa-cloud-download"></i> Download EML
     </a>
   </li>
@@ -79,7 +79,7 @@
   <div class="plain-text panel-plain" ng-bind-html=" item.text|newLines " ng-hide=" panelVisibility != 'plain' "></div>
   <div class="panel-attachments" ng-hide=" panelVisibility != 'attachments' ">
     <span ng-repeat="attachment in item.attachments">
-      <a href="/email/{{item.id}}/attachment/{{attachment.generatedFileName}}" target="_blank">
+      <a href="/api/email/{{item.id}}/attachment/{{attachment.generatedFileName}}/download" target="_blank">
         <strong>{{attachment.generatedFileName}}</strong>
       </a>
       <br>

@@ -5,9 +5,8 @@
  */
 
 app.controller('MainCtrl', [
-  '$scope', '$rootScope', '$http', '$route', '$location', 'Email',
-  function ($scope, $rootScope, $http, $route, $location, Email) {
-    $scope.loaded = false
+  '$scope', '$rootScope', '$http', '$route', '$location', '$notification', 'Email',
+  function ($scope, $rootScope, $http, $route, $location, $notification, Email) {
     $scope.items = []
     $scope.currentItemId = null
     $scope.autoShow = false
@@ -27,23 +26,30 @@ app.controller('MainCtrl', [
       })
     }
 
-    $rootScope.$on('Refresh', function (e, d) {
+    $scope.$on('uiRefresh', function (e, d) {
       loadData()
     })
 
-    $rootScope.$on('$routeChangeSuccess', function (e, route) {
+    $scope.$on('$routeChangeSuccess', function (e, route) {
       if (route.params) {
         $scope.currentItemId = route.params.itemId
       }
     })
 
-    $rootScope.$on('$viewContentLoaded', function () {
-      $scope.loaded = true
-    })
-
     var refreshTimeout = null
 
-    $rootScope.$on('newMail', function (e, newEmail) {
+    $scope.$on('emailNew', function (e, newEmail) {
+      console.log(e)
+      console.log(newEmail)
+
+      // Show a browser notification for the new message
+      $notification('New Email!', {
+        body: 'You have a new email'
+      })
+      .$on('click', function () {
+        $location.path('/email/' + newEmail.id)
+      })
+
       // update model
       $scope.items.push(newEmail)
       countUnread()
@@ -60,9 +66,9 @@ app.controller('MainCtrl', [
       }
     })
 
-    $rootScope.$on('deleteMail', function (e, email) {
+    $scope.$on('emailDelete', function (e, email) {
       if (email.id === 'all') {
-        $rootScope.$emit('Refresh')
+        $rootScope.$emit('uiRefresh')
         $location.path('/')
       } else {
         var idx = $scope.items.reduce(function (p, c, i) {
@@ -113,10 +119,10 @@ app.controller('MainCtrl', [
  */
 
 app.controller('NavCtrl', [
-  '$scope', '$rootScope', '$location', 'Email',
-  function ($scope, $rootScope, $location, Email) {
+  '$scope', '$rootScope', 'Email',
+  function ($scope, $rootScope, Email) {
     $scope.refreshList = function () {
-      $rootScope.$emit('Refresh')
+      $rootScope.$emit('uiRefresh')
     }
 
     $scope.deleteAll = function () {

@@ -23,7 +23,7 @@ module.exports = function (grunt) {
     },
 
     concat: {
-      angular_socket: {
+      angular: {
         src: [
           'node_modules/angular/angular.js',
           'node_modules/angular-*/angular-*.js',
@@ -109,6 +109,13 @@ module.exports = function (grunt) {
       dev: {
         script: './bin/maildev',
         options: {
+          args: [
+            // '--outgoing-port=465',
+            '--outgoing-host=smtp.gmail.com',
+            '--outgoing-user=brandon@sendwithus.com',
+            '--outgoing-pass=prrvbyfltzzaaaov',
+            '--outgoing-secure'
+          ],
           ignoredFiles: ['dist/**', 'src/**', 'test/**'],
           callback: function (nodemon) {
             nodemon.on('start', function () {

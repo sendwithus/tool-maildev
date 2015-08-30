@@ -119,9 +119,11 @@ app.controller('ItemCtrl', [
     // Relay email
     $scope.relay = function (item) {
       if (!$rootScope.config.outgoingHost) {
-        window.swal(
-          'Relay feature has not been configured.\n' +
-          'Run maildev --help for configuration info.')
+        window.swal({
+          type: 'warning',
+          title: 'Relay feature has not been configured.',
+          text: 'Run maildev --help for configuration info.'
+        })
         return
       }
 
@@ -129,7 +131,9 @@ app.controller('ItemCtrl', [
         type: 'warning',
         title: 'Are you sure?',
         text: 'Are you sure you want to REALLY SEND email to ' +
-              item.to.map(function (to) {return to.address}).join() + ' through ' + $rootScope.config.outgoingHost + '?',
+              '<strong>' + item.to.map(function (to) {return to.address}).join() + '</strong> ' +
+              'through <strong>' + $rootScope.config.outgoingHost + '</strong>?',
+        html: true,
         showCancelButton: true,
         closeOnConfirm: true,
         closeOnCancel: true
@@ -137,14 +141,22 @@ app.controller('ItemCtrl', [
         if (isConfirm) {
           $http({
             method: 'POST',
-            url: '/email/' + item.id + '/relay'
+            url: '/api/email/' + item.id + '/relay'
           })
           .success(function (data, status) {
             console.log('Relay result: ', data, status)
-            window.swal('Relay successful')
+            window.swal({
+              type: 'info',
+              title: 'Relay successful',
+              text: 'Continue on with your day'
+            })
           })
           .error(function (data) {
-            window.swal('Relay failed: ' + data.error, 'error')
+            window.swal({
+              type: 'error',
+              title: 'Relay failed',
+              text: data.error
+            })
           })
         }
       })

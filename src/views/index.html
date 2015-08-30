@@ -1,16 +1,17 @@
 <!doctype html>
-<html ng-app="mailDevApp" ng-controller="MainCtrl">
+<html ng-app="mailDevApp">
   <head>
-    <meta charset="utf-8" />
-    <title>{{ unreadItems > 0 ? '(' + unreadItems + ') ' : '' }} SWUMailDev</title>
+    <meta charset="utf-8">
+    <!-- <title>{{ unreadItems > 0 ? '(' + unreadItems + ') ' : '' }} SWUMailDev</title> -->
+    <title>SWUMailDev</title>
     <meta name="description" content="SMTP Server + Web Interface for viewing and testing emails during development.">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <link rel="stylesheet" href="styles/style.css">
   </head>
 
-  <body class="ng-cloak" ng-show="loaded">
-    <div class="application-container">
+  <body ng-controller="MainCtrl">
+    <div class="application-container ng-cloak" ng-show="loaded">
       <div class="sidebar">
         <div class="sidebar-header">
           <div class="brand-container">
@@ -19,14 +20,12 @@
               SWUMailDev
             </a>
             <div class="autoshow-toggle">
-              <i class="fa"
+              <i class="fa" title="Automatically show new emails as they arrive"
                  ng-class="{'fa-bell' : autoShow, 'fa-bell-o': !autoShow}"
-                 ng-click="toggleAutoShow()"
-                 title="Automatically show new emails as they arrive"></i>
+                 ng-click="toggleAutoShow()"></i>
             </div>
           </div>
-          <div>
-          </div>
+          <div></div>
           <div class="search-container">
             <input type="text"
                    class="search-input"

@@ -8,42 +8,59 @@ var app = angular.module('mailDevApp', [
   'ngRoute',
   'ngResource',
   'ngSanitize',
-  'ngAnimate'
+  'ngAnimate',
+  'notification'
 ])
 
-app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(true)
+app.config([
+  '$routeProvider', '$locationProvider', '$notificationProvider',
+  function ($routeProvider, $locationProvider, $notificationProvider) {
+    $locationProvider.html5Mode(true)
 
-  $routeProvider
-    .when('/', {
-      templateUrl: 'main.html',
-      controller: 'MainCtrl'
+    $routeProvider
+      .when('/', {
+        templateUrl: 'main.html'
+      })
+      .when('/email/:itemId', {
+        templateUrl: 'item.html',
+        controller: 'ItemCtrl'
+      })
+      .otherwise({
+        redirectTo: '/'
+      })
+
+    // Set notification options
+    $notificationProvider.setOptions({
+      delay: 3000
     })
-    .when('/email/:itemId', {
-      templateUrl: 'item.html',
-      controller: 'ItemCtrl'
+  }
+])
+
+app.run([
+  '$rootScope',
+  function ($rootScope) {
+    // Connect Socket.io
+    var socket = io()
+
+    socket.on('emailNew', function (data) {
+      $rootScope.$broadcast('emailNew', data)
     })
-    .otherwise({
-      redirectTo: '/'
+
+    socket.on('emailDelete', function (data) {
+      $rootScope.$broadcast('emailDelete', data)
     })
-}])
 
-app.run(['$rootScope', function ($rootScope) {
-  // Connect Socket.io
-  var socket = io()
+    $rootScope.$on('uiRefresh', function () {
+      console.log('Refresh event called.')
+    })
 
-  socket.on('newMail', function (data) {
-    $rootScope.$emit('newMail', data)
-  })
-
-  socket.on('deleteMail', function (data) {
-    $rootScope.$emit('deleteMail', data)
-  })
-
-  $rootScope.$on('Refresh', function () {
-    console.log('Refresh event called.')
-  })
-}])
+    // On DOM content loaded, make the app visible
+    $rootScope.loaded = false
+    $rootScope.$on('$viewContentLoaded', function () {
+      $rootScope.loaded = true
+    })
+  }
+])
 
 /**
  * NewLineFilter -- Converts new line characters to br tags
