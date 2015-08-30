@@ -30,7 +30,7 @@ maildev.getAllEmail(function(err, emails){
 ## Relay emails
 
 MailDev can relay a given email to the given "to" address. This example will
-relay every email sent to "johnny.utah@fbi.gov": 
+relay every email sent to "johnny.utah@fbi.gov":
 
 ```javascript
 var MailDev = require('maildev');
@@ -45,7 +45,7 @@ maildev.listen();
 
 // Print new emails to the console as they come in
 maildev.on('new', function(email){
-  
+
   if (email.to.address === 'johnny.utah@fbi.gov') {
 
     maildev.relayMail(email, function(err){
@@ -64,11 +64,11 @@ maildev.on('new', function(email){
 
 *All callbacks follow the Node error-first pattern, ex.* `function(err, data){...`
 
-**listen(callback)** - Starts the smtp server 
+**listen(callback)** - Starts the smtp server
 
 **end(callback)** - Stops the smtp server
 
-**on('new', callback)** - Event called when a new email is received. Callback 
+**on('new', callback)** - Event called when a new email is received. Callback
 receives single mail object.
 
 **getEmail(id, callback)** - Accepts email id, returns email object
@@ -81,9 +81,12 @@ receives single mail object.
 
 **deleteAllEmail(callback)** - Deletes all email and their attachments
 
-**getEmailAttachment(id, filename, callback)** - Returns the content type and a 
-readable stream of the file. Example callback: 
+**getEmailAttachment(id, filename, callback)** - Returns the content type and a
+readable stream of the file. Example callback:
 `function(err, contentType, readStream){...`
 
 **relayMail(id, callback)** - If configured, this will relay/send the given
 email to it's "to" address. Also accepts an email object instead of id.
+
+**setAutoRelayMode(enabled, rules)** - If relay configured, this will auto relay/send emails received
+to it's "to" address. The rules allows to filters the emails to send.
