@@ -1,7 +1,7 @@
 {
   "name": "swu-maildev",
   "description": "SMTP Server and Web Interface for reading and testing emails during development",
-  "version": "0.14.2",
+  "version": "0.15.0",
   "author": "sendwithus",
   "homepage": "https://www.sendwithus.com",
   "main": "./index.js",
