@@ -15,7 +15,15 @@ app.controller('ItemCtrl', [
         id: $routeParams.itemId
       }, function (email) {
         $scope.item = new Email(email)
-        $scope.rawEmail = 'api/email/' + $scope.item.id + '/source'
+
+        // Get the raw email source
+        $http({
+          method: 'GET',
+          url: '/api/email/' + $scope.item.id + '/source'
+        })
+        .success(function (data) {
+          $scope.item.source = data
+        })
 
         if ($scope.item.html) {
           $scope.item.iframeUrl = 'api/email/' + $scope.item.id + '/html'
@@ -131,7 +139,7 @@ app.controller('ItemCtrl', [
         type: 'warning',
         title: 'Are you sure?',
         text: 'Are you sure you want to REALLY SEND email to ' +
-              '<strong>' + item.to.map(function (to) {return to.address}).join() + '</strong> ' +
+              '<strong>' + item.to.map(function (to) { return to.address }).join() + '</strong> ' +
               'through <strong>' + $rootScope.config.outgoingHost + '</strong>?',
         html: true,
         showCancelButton: true,

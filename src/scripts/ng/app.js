@@ -74,6 +74,20 @@ app.filter('newLines', function () {
 })
 
 /**
+ * HtmlEncodeFilter -- Converts < and > characters to their html encoded version
+ */
+
+app.filter('htmlEncode', function () {
+  return function (text) {
+    if (text !== undefined) {
+      text = text.replace(/\>/g, '&gt;')
+      text = text.replace(/\</g, '&lt;')
+    }
+    return text
+  }
+})
+
+/**
  * Sidebar scrollbar fixed height
  */
 

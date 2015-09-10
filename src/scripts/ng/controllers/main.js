@@ -44,7 +44,6 @@ app.controller('MainCtrl', [
         body: newEmail.subject
       })
       .$on('click', function () {
-        console.log('NOTIFICATION CLICKEDDDD')
         // Give the browser time to take focus before changing page state
         $location.path('/email/' + newEmail.id)
       })
