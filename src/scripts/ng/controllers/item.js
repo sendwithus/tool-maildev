@@ -126,7 +126,7 @@ app.controller('ItemCtrl', [
 
     // Relay email
     $scope.relay = function (item) {
-      if (!$rootScope.config.outgoingHost) {
+      if (!$rootScope.config.isOutgoingEnabled) {
         window.swal({
           type: 'warning',
           title: 'Relay feature has not been configured.',

@@ -13,7 +13,8 @@ describe('mailserver', function () {
     it('should require authentication', function (done) {
       var maildev = new MailDev({
         incomingUser: 'bodhi',
-        incomingPass: 'surfing'
+        incomingPass: 'surfing',
+        silent: true
       })
 
       maildev.listen(function (err) {
@@ -54,7 +55,8 @@ describe('mailserver', function () {
     it('should authenticate', function (done) {
       var maildev = new MailDev({
         incomingUser: 'bodhi',
-        incomingPass: 'surfing'
+        incomingPass: 'surfing',
+        silent: true
       })
 
       maildev.listen(function (err) {
