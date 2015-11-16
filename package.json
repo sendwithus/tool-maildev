@@ -49,6 +49,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "./node_modules/mocha/bin/mocha",
+    "postinstall": "node ./node_modules/grunt-cli/bin/grunt build"
   }
 }
