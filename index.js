@@ -44,10 +44,6 @@ module.exports = function (config) {
     logger.setLevel(0)
   }
 
-  if (config.verbose) {
-    logger.init(true)
-  }
-
   // Start the Mailserver & Web GUI
   mailserver.create(config.smtp, config.ip, config.incomingUser, config.incomingPass)
 

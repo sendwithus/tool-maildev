@@ -2,6 +2,7 @@
 .sass-cache
 node_modules
 dist
+src/scripts/vendor/*
 .zip
 maildev-*
 settings.json
