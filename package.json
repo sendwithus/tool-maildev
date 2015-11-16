@@ -1,7 +1,7 @@
 {
   "name": "swu-maildev",
   "description": "SMTP Server and Web Interface for reading and testing emails during development",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "author": "sendwithus",
   "homepage": "https://www.sendwithus.com",
   "main": "./index.js",
@@ -50,6 +50,6 @@
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",
-    "postinstall": "node ./node_modules/grunt-cli/bin/grunt build"
+    "postinstall": "grunt build"
   }
 }
