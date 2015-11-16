@@ -33,7 +33,6 @@
     "font-awesome": "^4.4.0",
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^3.0.3",
-    "grunt-cli": "^0.1.13",
     "grunt-concurrent": "^2.1.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.2",
@@ -50,7 +49,6 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
-    "postinstall": "node ./node_modules/grunt-cli/bin/grunt build"
+    "test": "./node_modules/mocha/bin/mocha"
   }
 }
